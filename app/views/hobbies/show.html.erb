@@ -1,0 +1,16 @@
+<div class="row col-md-8 col-md-offset-2">
+  <h1><%= @hobby.name %></h1>
+
+<div class="panel panel-default">
+  <% if @hobby.messages.any? %>
+    <div class="panel-body" id="messages">
+      <%= render partial: 'messages/message', collection: @hobby.messages%>
+    </div>
+  <%else%>
+    <div class="panel-body hidden" id="messages">
+    </div>
+  <%end%>
+</div>
+
+  <%= render partial: 'messages/message_form', locals: {message: @message, hobby: @hobby}%>
+</div>
