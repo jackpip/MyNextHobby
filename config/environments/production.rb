@@ -1,6 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.default_url_options = { host: 'mynexthobby.herokuapp.com' }
+  config.web_socket_server_url = "wss://mynexthobby.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://mynexthobby.herokuapp.com', 'http://mynexthobby.herokuapp.com']
 
   # Code is not reloaded between requests.
   config.cache_classes = true
