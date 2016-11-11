@@ -1,16 +1,73 @@
+<script>
+  $(function() {
+    $(".chat-box").scrollTop($(".chat-box")[0].scrollHeight);
+    $("#new_message").bind("ajax:complete", function(event,xhr,status){
+      $('#message_body').val('');
+      $(".chat-box").scrollTop($(".chat-box")[0].scrollHeight);
+    });
+    $('#new_message').keypress(function (e) {
+      if (e.which == 13) {
+        $('#message_body').submit();
+        return false;
+      }
+    });
+  });
+</script>
+
 <div class="row col-md-8 col-md-offset-2">
   <h1><%= @hobby.name %></h1>
 
-<div class="panel panel-default">
-  <% if @hobby.messages.any? %>
-    <div class="panel-body" id="messages">
-      <%= render partial: 'messages/message', collection: @hobby.messages%>
+  <div>
+    <!-- Modal -->
+    <div class="modal fade" id="myResourceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Add a Resource</h4>
+          </div>
+          <%= simple_form_for @resource, url: hobby_resources_path(@hobby) do |f| %>
+            <div class="modal-body">
+              <%= f.input :link %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit "Add a Resource", class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <%else%>
-    <div class="panel-body hidden" id="messages">
+
+    <div>
+      <h3 class="pull-left">Resources</h3>
+      <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myResourceModal">Add resource</button>
     </div>
-  <%end%>
-</div>
+
+    <div class="clear"></div>
+
+    <% @hobby.resources.each do |resource| %>
+      <div>
+        <p><%= link_to resource.link, "http://#{resource.link}" %></p>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="clear"></div>
+
+  <h3>Chat</h3>
+
+  <div class="panel panel-default chat-box">
+    <% if @hobby.messages.any? %>
+      <div class="panel-body" id="messages">
+        <%= render partial: 'messages/message', collection: @hobby.messages%>
+      </div>
+    <%else%>
+      <div class="panel-body hidden" id="messages">
+      </div>
+    <%end%>
+  </div>
 
   <%= render partial: 'messages/message_form', locals: {message: @message, hobby: @hobby}%>
 </div>
