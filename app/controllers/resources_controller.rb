@@ -1,4 +1,5 @@
 class ResourcesController < ApplicationController
+  before_action :authenticate_user!
 
   def create
     @hobby = Hobby.find(params[:hobby_id])
