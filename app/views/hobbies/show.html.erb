@@ -16,6 +16,15 @@
 
 <div class="row col-md-8 col-md-offset-2">
   <h1><%= @hobby.name %></h1>
+  <% if current_user.hobbies.include?(@hobby) %>
+    <% puts current_user.hobbies.inspect %>
+    <%= link_to 'Remove from your hobbies', remove_hobby_path(:hobby => @hobby), class: 'btn btn-danger' %>
+    <% puts current_user.hobbies.inspect %>
+  <% else %>
+    <% puts current_user.hobbies.inspect %>
+    <%= link_to 'Add to your hobbies', add_hobby_path(:hobby => @hobby), class: 'btn btn-primary' %>
+    <% puts current_user.hobbies.inspect %>
+  <% end %>
 
   <div>
     <!-- Modal -->
