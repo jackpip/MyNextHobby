@@ -1,1 +1,4 @@
-<h1>Hello World</h1>
+<div class="home">
+  <h1>Ditch boredom, find your next hobby</h1>
+  <%= link_to "HERE", hobby_path(Hobby.order("RANDOM()").first), class: 'btn btn-primary' %>
+</div>
