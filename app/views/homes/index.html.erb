@@ -1,4 +1,13 @@
 <div class="home">
   <h1>Ditch boredom, find your next hobby</h1>
-  <%= link_to "HERE", hobby_path(Hobby.order("RANDOM()").first), class: 'btn btn-primary' %>
+  <%= link_to "Get Started", hobby_path(Hobby.order("RANDOM()").first), class: 'btn btn-primary' %>
+</div>
+
+<div class="features">
+  <div class="feature">
+    <%= link_to image_tag('programming.jpg'), hobby_path(Hobby.find(2)) %>
+  </div>
+  <div class="feature">
+    <%= link_to image_tag('juggling.jpg'), hobby_path(Hobby.find(1)) %>
+  </div>
 </div>
